@@ -1,14 +1,9 @@
-div#TreeStyleChromeSidebar {
+iframe#TreeStyleChromeSidebarFrame {
+    border: none;
     position: fixed;
     z-index: 2147483647;
-    border-right: 2px solid gray;
-    background-color: rgba(202, 202, 202, 0.90);
     width: 300px;
     overflow: hidden;
     left: 0;
     top: 0;
-}
-
-html {
-    left: 200px;
 }
