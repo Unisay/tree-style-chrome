@@ -22,7 +22,7 @@
         }
     ],
     "web_accessible_resources": [
-        "css/iframe.css", "img/chrome-32.png", "img/loading.gif", "font/oswald.woff"
+        "css/iframe.css", "img/chrome-32.png", "img/new-tab.png", "img/loading.gif", "font/oswald.woff"
     ],
     "browser_action": {
         "default_icon": "img/icon.png"

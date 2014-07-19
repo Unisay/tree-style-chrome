@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var sidebarFrame = createSidebarFrame();
-var sidebar = createSidebar();
+var sidebar = SideBar(null);
 
 applyOnBody(function () {
     this.appendChild(sidebarFrame);
@@ -41,53 +41,6 @@ var TabManager = {
         chrome.runtime.sendMessage(payload);
     }
 };
-
-function createSidebar() {
-    var Tab = React.createClass({
-        handleClick: function (event) {
-            if (event.button == 1) {
-                TabManager.remove(this.props.key);
-            } else {
-                TabManager.activate(this.props.key);
-            }
-
-        },
-        render: function () {
-            var icon;
-            if (this.props.loading) {
-                icon = chrome.extension.getURL("img/loading.gif");
-            } else {
-                icon = this.props.icon || chrome.extension.getURL("img/loading.gif");
-                var chromeThemePrefix = "chrome://theme";
-                if (icon && icon.slice(0, chromeThemePrefix.length) == chromeThemePrefix) {
-                    icon = chrome.extension.getURL("img/chrome-32.png");
-                }
-            }
-            var cssClass = this.props.active ? 'tab active' : 'tab';
-            return <div onClick={this.handleClick} className={cssClass}><img className="icon" src={icon} />{this.props.title}</div>;
-        }
-    });
-
-    var TabsList = React.createClass({
-        render: function () {
-            var tabNodes = this.props.tabs.map(function (tab) {
-                return <Tab key={tab.id} icon={tab.favIconUrl} title={tab.title} active={tab.active} loading={tab.status == 'loading'}/>;
-            });
-            return <div id="tabsList">{tabNodes}</div>;
-        }
-    });
-
-    var SideBar = React.createClass({
-        handleDoubleClick: function () {
-            TabManager.createTab();
-        },
-        render: function () {
-            return <div id="sidebar" onDoubleClick={this.handleDoubleClick}><TabsList tabs={this.props.tabs}/></div>;
-        }
-    });
-
-    return <SideBar />;
-}
 
 function showSideBar() {
     sidebarFrame.style.display = 'block';
@@ -144,7 +97,6 @@ function revertHostPage() {
 function createSidebarFrame() {
     var sidebarFrame = document.createElement("iframe");
     sidebarFrame.setAttribute("id", "TreeStyleChromeSidebarFrame");
-    // sidebarFrame.style.height = window.innerHeight + "px";
     return sidebarFrame;
 }
 
@@ -161,11 +113,5 @@ function applyOnBody(func) {
             }
         })
     });
-    observer.observe(document, {
-            childList: true,
-            subtree: true,
-            attributes: false,
-            characterData: false
-        }
-    );
+    observer.observe(document, { childList: true, subtree: true, attributes: false, characterData: false });
 }

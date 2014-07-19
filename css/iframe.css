@@ -26,7 +26,7 @@ body {
 #sidebar div.tab img.icon {
   width: 16px;
   height: 16px;
-  margin: 0 3px 0 3px;
+  margin: 0 5px 0 3px;
   vertical-align: middle;
 }
 #sidebar div.tab span {
@@ -35,4 +35,11 @@ body {
   width: 264px;
   overflow: hidden;
   display: inline-block;
+}
+#sidebar .new-tab-button {
+  cursor: pointer;
+  margin: 5px auto;
+  width: 20px;
+  height: 20px;
+  display: block;
 }
