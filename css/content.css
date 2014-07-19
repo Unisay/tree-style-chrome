@@ -1,0 +1,9 @@
+iframe#TreeStyleChromeSidebarFrame {
+  border: none;
+  position: fixed;
+  z-index: 2147483647;
+  width: 300px;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+}
