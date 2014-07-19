@@ -1,6 +1,6 @@
 var isOpen = true;
 
-[chrome.tabs.onCreated, chrome.tabs.onUpdated, chrome.tabs.onRemoved, chrome.tabs.onActivated].forEach(function(event){
+[chrome.tabs.onCreated, chrome.tabs.onUpdated, chrome.tabs.onRemoved, chrome.tabs.onActivated, chrome.tabs.onMoved].forEach(function(event){
     event.addListener(updateTabsList);
 });
 
