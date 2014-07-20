@@ -37,24 +37,25 @@ var Tab = React.createClass({displayName: 'Tab',
     }
 });
 
-var TabsList = React.createClass({displayName: 'TabsList',
-    render: function () {
-        var tabNodes = this.props.tabs.map(function (tab) {
-            return Tab( {key:tab.id, icon:tab.favIconUrl, title:tab.title, active:tab.active, loading:tab.status == 'loading'});
-        });
-        return React.DOM.div( {id:"tabsList"}, tabNodes,
-            NewTabButton(null )
-        );
-    }
-});
-
 var SideBar = React.createClass({displayName: 'SideBar',
     handleDoubleClick: function () {
         TabManager.createTab();
     },
     render: function () {
-        return React.DOM.div( {id:"sidebar", onDoubleClick:this.handleDoubleClick}, 
-            TabsList( {tabs:this.props.tabs})
+        var tabNodes = this.props.tabs.map(function (tab) {
+            return Tab(
+                {key:tab.id,
+                icon:tab.favIconUrl,
+                title:tab.title,
+                active:tab.active,
+                loading:tab.status == 'loading',
+                parent:tab.openerTabId} );
+        });
+        return (
+            React.DOM.div( {id:"sidebar", onDoubleClick:this.handleDoubleClick}, 
+                tabNodes,
+                NewTabButton(null )
+            )
         );
     }
 });

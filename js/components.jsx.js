@@ -37,24 +37,25 @@ var Tab = React.createClass({
     }
 });
 
-var TabsList = React.createClass({
-    render: function () {
-        var tabNodes = this.props.tabs.map(function (tab) {
-            return <Tab key={tab.id} icon={tab.favIconUrl} title={tab.title} active={tab.active} loading={tab.status == 'loading'}/>;
-        });
-        return <div id="tabsList">{tabNodes}
-            <NewTabButton />
-        </div>;
-    }
-});
-
 var SideBar = React.createClass({
     handleDoubleClick: function () {
         TabManager.createTab();
     },
     render: function () {
-        return <div id="sidebar" onDoubleClick={this.handleDoubleClick}>
-            <TabsList tabs={this.props.tabs}/>
-        </div>;
+        var tabNodes = this.props.tabs.map(function (tab) {
+            return <Tab
+                key={tab.id}
+                icon={tab.favIconUrl}
+                title={tab.title}
+                active={tab.active}
+                loading={tab.status == 'loading'}
+                parent={tab.openerTabId} />;
+        });
+        return (
+            <div id="sidebar" onDoubleClick={this.handleDoubleClick}>
+                {tabNodes}
+                <NewTabButton />
+            </div>
+        );
     }
 });
