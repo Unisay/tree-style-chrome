@@ -104,7 +104,7 @@ function applyOnBody(func) {
     var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             if (mutation.addedNodes) {
-                Array.prototype.forEach.call(mutation.addedNodes, function (node) {
+                _.each(mutation.addedNodes, function (node) {
                     if (node instanceof HTMLBodyElement) {
                         func.apply(node);
                         observer.disconnect();

@@ -1,4 +1,5 @@
-@tabHeight: 25px;
+@iconSize: 16px;
+@tabHeight: 24px;
 @tabWidth: 300px;
 @tabBgColor: #ECECEC;
 @barBgColor: rgba(202, 202, 202, 0.90);
@@ -30,19 +31,44 @@ body {
       background-color: lighten(@tabBgColor, 5%);
     }
 
-    img.icon {
-      width: 16px;
-      height: 16px;
-      margin: 0 5px 0 3px;
-      vertical-align: middle;
+    div.tab-info {
+      float: left;
+
+      img.tab-icon {
+        width: @iconSize;
+        height: @iconSize;
+        margin-top: ((@tabHeight - @iconSize) / 2);
+        margin-right: 5px;
+      }
+
+      span {
+        // width: @tabWidth - 36;
+        overflow: hidden;
+        display: inline-block;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
     }
 
-    span {
-      line-height: @tabHeight;
-      vertical-align: middle;
-      width: @tabWidth - 36;
-      overflow: hidden;
-      display: inline-block;
+    &:hover div.tab-actions {
+      visibility: visible;
+    }
+
+    div.tab-actions {
+      visibility: hidden;
+      z-index: 10;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      background-color: @tabBgColor;
+      margin-top: ((@tabHeight - @iconSize - 2) / 2);
+      position: absolute;
+      width: 18px;
+      right: 3px;
+      padding: 2px;
+
+      img.tab-close {
+        cursor: pointer;
+      }
     }
 
   }

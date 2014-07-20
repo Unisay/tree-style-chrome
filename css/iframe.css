@@ -18,23 +18,43 @@ body {
   overflow: hidden;
   background-color: #ececec;
   white-space: nowrap;
-  height: 25px;
+  height: 24px;
 }
 #sidebar div.tab.active {
   background-color: #f9f9f9;
 }
-#sidebar div.tab img.icon {
+#sidebar div.tab div.tab-info {
+  float: left;
+}
+#sidebar div.tab div.tab-info img.tab-icon {
   width: 16px;
   height: 16px;
-  margin: 0 5px 0 3px;
-  vertical-align: middle;
+  margin-top: 4px;
+  margin-right: 5px;
 }
-#sidebar div.tab span {
-  line-height: 25px;
-  vertical-align: middle;
-  width: 264px;
+#sidebar div.tab div.tab-info span {
   overflow: hidden;
   display: inline-block;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+#sidebar div.tab:hover div.tab-actions {
+  visibility: visible;
+}
+#sidebar div.tab div.tab-actions {
+  visibility: hidden;
+  z-index: 10;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #ececec;
+  margin-top: 3px;
+  position: absolute;
+  width: 18px;
+  right: 3px;
+  padding: 2px;
+}
+#sidebar div.tab div.tab-actions img.tab-close {
+  cursor: pointer;
 }
 #sidebar .new-tab-button {
   cursor: pointer;

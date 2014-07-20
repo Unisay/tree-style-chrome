@@ -12,13 +12,25 @@ var NewTabButton = React.createClass({
 var Tab = React.createClass({
     handleClick: function (event) {
         if (event.button == 1) {
-            TabManager.remove(this.props.key);
+            this.close();
         } else {
             this.props.active = true;
             renderSidebar(sidebar);
             TabManager.activate(this.props.key);
         }
-
+    },
+    close: function() {
+        TabManager.remove(this.props.key);
+        return false;
+    },
+    getDepth: function () {
+        var depth = 0;
+        var tab = this.props.parentFunc.call();
+        while (tab) {
+            depth++;
+            tab = tab.props.parentFunc.call();
+        }
+        return depth;
     },
     render: function () {
         var icon;
@@ -32,8 +44,19 @@ var Tab = React.createClass({
             }
         }
         var cssClass = this.props.active ? 'tab active' : 'tab';
-        return <div onClick={this.handleClick} className={cssClass}>
-            <img className="icon" src={icon} />{this.props.title}</div>;
+        var style = {
+            marginLeft: (10 * this.getDepth())
+        };
+        return (
+            <div style={style} onClick={this.handleClick} className={cssClass}>
+                <div className="tab-info">
+                    <img className="tab-icon" src={icon} />
+                    {this.props.title}
+                </div>
+                <div className="tab-actions">
+                    <img className="tab-close" src={chrome.extension.getURL("img/cross.png")} onClick={this.close} />
+                </div>
+            </div> );
     }
 });
 
@@ -44,18 +67,21 @@ var SideBar = React.createClass({
     render: function () {
         var tabNodes = this.props.tabs.map(function (tab) {
             return <Tab
-                key={tab.id}
-                icon={tab.favIconUrl}
-                title={tab.title}
-                active={tab.active}
-                loading={tab.status == 'loading'}
-                parent={tab.openerTabId} />;
+            key={tab.id}
+            icon={tab.favIconUrl}
+            title={tab.title}
+            active={tab.active}
+            loading={tab.status == 'loading'}
+            parentFunc={(function () {
+                return tab.openerTabId ? _.find(tabNodes, function (tabNode) {
+                    return tabNode.props.key == tab.openerTabId
+                }) : undefined;
+            })} />;
         });
         return (
             <div id="sidebar" onDoubleClick={this.handleDoubleClick}>
                 {tabNodes}
                 <NewTabButton />
-            </div>
-        );
+            </div> );
     }
 });
