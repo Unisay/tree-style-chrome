@@ -4,6 +4,10 @@ var isOpen = true;
     event.addListener(updateTabsList);
 });
 
+chrome.tabs.onActivated.addListener(function(tab) {
+    chrome.tabs.sendMessage(tab.tabId, {from: "TreeStyleChrome.Background", cmd: "activate"});
+});
+
 chrome.browserAction.onClicked.addListener(function() {
     isOpen = !isOpen;
     sendToAllTabs({cmd: "toggle", open: isOpen});

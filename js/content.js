@@ -53,6 +53,7 @@ var Tab = React.createClass({displayName: 'Tab',
                     React.DOM.img( {className:"tab-icon", src:icon} ),
                     this.props.title
                 ),
+                React.DOM.div( {className:"tab-gradient"} ),
                 React.DOM.div( {className:"tab-actions"}, 
                     React.DOM.img( {className:"tab-close", src:chrome.extension.getURL("img/cross.png"), onClick:this.close} )
                 )
@@ -106,6 +107,9 @@ chrome.runtime.onMessage.addListener(
                 if (request && request.value) {
                     renderSidebar(sidebar, request.value);
                 }
+            } else if (request.cmd == "activate") {
+                sidebarFrame.className = "hover";
+                setTimeout(function(){ sidebarFrame.className = ''; }, 1000);
             } else {
                 sendResponse({status: false});
             }
@@ -131,12 +135,12 @@ var TabManager = {
 
 function showSideBar() {
     sidebarFrame.style.display = 'block';
-    narrowHostPage();
+    // narrowHostPage();
 }
 
 function hideSideBar() {
     sidebarFrame.style.display = 'none';
-    revertHostPage();
+    // revertHostPage();
 }
 
 function renderSidebar(sideBar, tabs) {

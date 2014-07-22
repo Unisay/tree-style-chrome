@@ -1,10 +1,21 @@
+@import "vars.less";
+
 iframe#TreeStyleChromeSidebarFrame {
-    border: none;
-    position: fixed;
-    z-index: 2147483647;
+  border: none;
+  border-right: 1px solid darken(@barBgColor, 10%);
+  position: fixed;
+  z-index: 2147483647;
+  width: 24px;
+  height: 100%;
+  overflow-x: hidden;
+  left: 0;
+  top: 0;
+  opacity: 0.2;
+  -webkit-transition: width @speed, opacity @speed;
+
+  &.hover, &:hover {
     width: 300px;
-    height: 100%;
-    overflow-x: hidden;
-    left: 0;
-    top: 0;
+    opacity: 1;
+    -webkit-box-shadow: 3px 0px 5px 0px rgba(50, 50, 50, 0.3);
+  }
 }

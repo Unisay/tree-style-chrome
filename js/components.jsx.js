@@ -53,6 +53,7 @@ var Tab = React.createClass({
                     <img className="tab-icon" src={icon} />
                     {this.props.title}
                 </div>
+                <div className="tab-gradient" />
                 <div className="tab-actions">
                     <img className="tab-close" src={chrome.extension.getURL("img/cross.png")} onClick={this.close} />
                 </div>
